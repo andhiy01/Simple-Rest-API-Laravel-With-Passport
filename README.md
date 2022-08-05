@@ -7,6 +7,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
@@ -21,44 +22,48 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+## Local Development
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Web Server
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Mac : use [Valet](https://laravel.com/docs/8.x/valet)
+- Windows : use [Laragon](https://laragon.org/)
 
-## Laravel Sponsors
+### Code Base
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+- Git clone from the [repo](https://github.com/andhiy01/Simple-Rest-API-Laravel-With-Passport).
+- Follow the instruction from your Web Server on how to run this code base in your environment.
+- Set up your virtual host if possible, so you can just open the project at your browser with _api.test_ for example.
 
-### Premium Partners
+### Back-end Config
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+0. Install Laravel version 9^ and PHP version 8.1^
+1. Create new .env file, just copy and paste it from .env.example and rename to .env.
+2. Create new database and update database variable on your .env file.
+3. Import master db location (ask your Lead Dev or PM for this sql file).
+4. Run `composer install` from your terminal.
+5. Meanwhile, update your APP_URL on .env file to your virtual host, e.g. https://api.test
+6. Run `php artisan key:generate` from your terminal.
+7. Run `php artisan migrate:fresh --seed` if this is first time you start the project or just run `php artisan migrate` if you already have this repo before.
+8. Run `php artisan clear-compiled` from your terminal.
+9. Run `php artisan optimize:clear` from your terminal.
+10. Run `php artisan passport:install` from your terminal and copy key to .env.
+11. Now you can open the project from your browser using your own virtual host url (etc. api.test) or first, run `php artisan serve` and open it at http://localhost:8000 .
+12. Start from here, you are ready to code.
 
-## Contributing
+For MAIL_HOST in .env file you can use Mailtrap.io and login with your own Google Account
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Github Collaboration
+1. Create **new git branch** with your task or feature name, then **git checkout** to make sure you are now at your own branch.
+2. Please do `git commit` on each task or feature, not a single commit for all tasks or features.
+3. After you finished on your work, **git push** your commit to your own branch then **create new pull request (PR)** to Dev branch.
 
-## Code of Conduct
+#### Please pay attention on this:
+- You are not allowed to do `git push` to Dev branch.
+- You are not allowed to run `composer update` from your terminal.
+- You are not allowed to compile any assets from npm.
+- You are allowed to install new Laravel package, but please discuss first before you do this :)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+If you have any trouble just chat on our Slack Channel.
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+_This document is last updated at Monday, 06 Aug 2022_
