@@ -4,7 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Api\UserSearchByController;
+use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\UserSearchController;
+use App\Http\Controllers\Api\CategorySearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +24,8 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('logout', [AuthController::class, 'logout']);
 
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::get('user/search', UserSearchByController::class);
+    Route::get('user/search', UserSearchController::class);
+    Route::get('category/search', CategorySearchController::class);
     Route::apiResource('user', UserController::class);
+    Route::apiResource('category', CategoryController::class);
 });
