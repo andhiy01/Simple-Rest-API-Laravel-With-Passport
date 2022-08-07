@@ -61,7 +61,7 @@ class AuthController extends ApiController //extend to response format
                 $request->user(),
             );
 
-            return $this->sendSuccess([], 'Anda Berhasil Logout!');
+            return $this->sendSuccess([], 'Success Logout!');
         } catch (\Throwable $e) {
             return $this->sendError($e->getMessage(), $e->getCode());
         }

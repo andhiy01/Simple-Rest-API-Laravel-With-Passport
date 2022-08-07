@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductRequest extends FormRequest
+class PaymentMethodRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,25 +24,16 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         $rules =  [
-            'name' => 'required|string|unique:products,name',
-            'category_id' => 'required|exists:categories,id',
-            'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
-            'price' => 'required|numeric',
-            'stock' => 'required|numeric',
+            'name' => 'required|string|unique:payment_methods,name',
+            'admin_fee' => 'required|numeric',
         ];
 
         if (in_array($this->method(), ['PUT', 'PATCH'])) {
-            $id = $this->product->id;
+            $id = $this->payment_method->id;
 
             $rules['name'] = [
                 'required',
-                "unique:products,name,{$id},id",
-            ];
-
-            $rules['image'] = [
-                'image',
-                'mimes:jpg,png,jpeg',
-                'max:2048'
+                "unique:payment_methods,name,{$id},id",
             ];
         }
 

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Models\PaymentMethod;
 use App\Services\PaymentMethodService;
 use App\Http\Controllers\Api\ApiController;
-use App\Models\PaymentMethod;
+use App\Http\Requests\PaymentMethodRequest;
 
 class PaymentMethodController extends ApiController
 {
@@ -30,7 +29,7 @@ class PaymentMethodController extends ApiController
     }
 
 
-    public function store(Request $request)
+    public function store(PaymentMethodRequest $request)
     {
         try {
             $store = $this->paymentMethodService->addPaymentMethod($request->all());
@@ -40,7 +39,7 @@ class PaymentMethodController extends ApiController
         }
     }
 
-    public function update(Request $request, PaymentMethod $payment_method)
+    public function update(PaymentMethodRequest $request, PaymentMethod $payment_method)
     {
         try {
             $update = $this->paymentMethodService->updatePaymentMethod($request->all(), $payment_method);
