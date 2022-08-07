@@ -15,7 +15,7 @@ class UserService
          *
          * @return \App\Models\User
          */
-        $user = User::all();
+        $user = User::paginate(10);
 
         return $user;
     }
@@ -31,7 +31,7 @@ class UserService
          */
         $user = User::where('name', 'like', '%' . $search . '%')
             ->orWhere('email', 'like', '%' . $search . '%')
-            ->get();
+            ->paginate(10);
 
         return $user;
     }

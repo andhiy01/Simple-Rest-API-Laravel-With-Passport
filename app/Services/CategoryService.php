@@ -15,7 +15,7 @@ class CategoryService
          *
          * @return \App\Models\Category
          */
-        $category = Category::all();
+        $category = Category::paginate(10);
 
         return $category;
     }
@@ -61,7 +61,7 @@ class CategoryService
          * @return \App\Models\Category
          */
         $category = Category::where('name', 'like', '%' . $search . '%')
-            ->get();
+            ->paginate(10);
 
         return $category;
     }
