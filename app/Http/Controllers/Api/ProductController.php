@@ -23,13 +23,10 @@ class ProductController extends ApiController
     {
         try {
             $product =  $this->productService->getAllProduct();
+            if ($product->count() == 0)
+                return $this->sendError('No Data Found', Response::HTTP_NO_CONTENT);
 
-            // $check = AuthenticationService::checkVerification($product, $product);
-            // if ($check)
-            //     return $this->sendError($check['message'], $check['code'], $check['data']);
-
-
-            return $this->sendSuccess($product, "Success ");
+            return $this->sendSuccess($product, "Success");
         } catch (\Throwable $e) {
             return $this->sendError($e->getMessage());
         }

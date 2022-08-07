@@ -7,8 +7,10 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\UserSearchController;
+use App\Http\Controllers\Api\PaymentMethodController;
 use App\Http\Controllers\Api\ProductSearchController;
 use App\Http\Controllers\Api\CategorySearchController;
+use App\Http\Controllers\Api\PaymentMethodSearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,9 +31,11 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('user/search', UserSearchController::class);
     Route::get('category/search', CategorySearchController::class);
     Route::get('product/search', ProductSearchController::class);
+    Route::get('payment-method/search', PaymentMethodSearchController::class);
 
 
     Route::apiResource('user', UserController::class);
     Route::apiResource('category', CategoryController::class);
     Route::apiResource('product', ProductController::class);
+    Route::apiResource('payment-method', PaymentMethodController::class);
 });
