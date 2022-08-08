@@ -16,7 +16,10 @@ class CartService
          *
          * @return \App\Models\Cart
          */
-        $cart = Cart::with('product.category')->where('user_id', auth()->id())->paginate(10);
+        $cart = Cart::with('product.category')
+            ->where('user_id', auth()->id())
+            ->where('status', 'in cart')
+            ->paginate(10);
 
         return $cart;
     }

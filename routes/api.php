@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\UserSearchController;
+use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\PaymentMethodController;
 use App\Http\Controllers\Api\ProductSearchController;
 use App\Http\Controllers\Api\CategorySearchController;
@@ -41,4 +42,5 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource('product', ProductController::class);
     Route::apiResource('payment-method', PaymentMethodController::class);
     Route::apiResource('cart', CartController::class);
+    Route::apiResource('transaction', TransactionController::class);
 });

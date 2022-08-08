@@ -3,33 +3,28 @@
 namespace App\Models;
 
 use App\Models\User;
-use App\Models\Product;
 use App\Models\TransactionProduct;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Cart extends Model
+class Transaction extends Model
 {
-    protected $fillable = [
-        'user_id',
-        'product_id',
-        'quantity',
-        'price'
-    ];
+    protected $guarded = [];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function product(): BelongsTo
+    public function payment_method(): BelongsTo
     {
-        return $this->belongsTo(Product::class, 'product_id', 'id');
+        return $this->belongsTo(PaymentMethod::class, 'payment_method_id', 'id');
     }
 
     public function transaction_product(): HasMany
     {
-        return $this->hasMany(TransactionProduct::class, 'cart_id');
+        return $this->hasMany(TransactionProduct::class, 'transaction_id');
     }
 }
