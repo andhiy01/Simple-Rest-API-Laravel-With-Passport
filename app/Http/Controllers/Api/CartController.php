@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Cart;
 use Illuminate\Http\Request;
 use App\Services\CartService;
+use App\Http\Requests\CartRequest;
 use App\Http\Controllers\Api\ApiController;
 
 class CartController extends ApiController
@@ -29,7 +30,7 @@ class CartController extends ApiController
     }
 
 
-    public function store(Request $request)
+    public function store(CartRequest $request)
     {
         try {
             \DB::beginTransaction();
@@ -45,7 +46,7 @@ class CartController extends ApiController
         }
     }
 
-    public function update(Request $request, Cart $cart)
+    public function update(CartRequest $request, Cart $cart)
     {
         try {
             \DB::beginTransaction();

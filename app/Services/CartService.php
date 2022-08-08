@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Cart;
+use App\Exceptions\CustomException;
 
 class CartService
 {
@@ -29,6 +30,9 @@ class CartService
          *
          * @return \App\Models\Cart
          */
+        if (Cart::whereUserId(auth()->id())->count() > 1)
+            throw new CustomException('Sorry, your cart is full. Please delete some products to add more products');
+
         //check keranjang yang sudah ada berdasarkan user id, product id dan status in cart
         $check_cart = Cart::with('product')->where('user_id', auth()->id())
             ->where('product_id', $data['product_id'])
@@ -68,7 +72,8 @@ class CartService
          *
          * @return \App\Models\Cart
          */
-
+        if ($cart->quantity + $cart->product->stock < $data['quantity'])
+            throw new CustomException('Sorry, Stock out of range');
 
         $cart->product->update([
             'stock' => ($cart->product->stock + $cart->quantity) - $data['quantity']
@@ -85,21 +90,9 @@ class CartService
     public function deleteCartById($cart)
     {
         $cart->delete();
-        return $cart;
-    }
-
-    public function getSearchCart(string $search)
-    {
-        /**
-         * get Cart data by name or email
-         *
-         * @param string $search
-         *
-         * @return \App\Models\Cart
-         */
-        $cart = Cart::where('name', 'like', '%' . $search . '%')
-            ->paginate(10);
-
+        $cart->product->update([
+            'stock' => $cart->product->stock + $cart->quantity
+        ]);
         return $cart;
     }
 }
