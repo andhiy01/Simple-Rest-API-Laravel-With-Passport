@@ -54,12 +54,10 @@ class AuthController extends ApiController //extend to response format
     }
 
 
-    public function logout(Request $request)
+    public function logout()
     {
         try {
-            $this->authenticationService->logout(
-                $request->user(),
-            );
+            $this->authenticationService->logout();
 
             return $this->sendSuccess([], 'Success Logout!');
         } catch (\Throwable $e) {
