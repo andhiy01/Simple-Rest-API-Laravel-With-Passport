@@ -47,7 +47,7 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 7. Run `php artisan migrate:fresh --seed` if this is first time you start the project or just run `php artisan migrate` if you already have this repo before.
 8. Run `php artisan clear-compiled` from your terminal.
 9. Run `php artisan optimize:clear` from your terminal.
-10. Run `php artisan passport:install` from your terminal and copy key to .env.
+10. Run `php artisan passport:install` from your terminal and copy key to .env `PASSPORT_PERSONAL_ACCESS_CLIENT_ID` and `PASSPORT_PERSONAL_ACCESS_CLIENT_SECRET`.
 11. Now you can open the project from your browser using your own virtual host url (etc. api.test) or first, run `php artisan serve` and open it at http://localhost:8000 .
 12. Start from here, you are ready to code.
 
