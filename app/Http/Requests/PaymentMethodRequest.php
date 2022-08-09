@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class PaymentMethodRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,18 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         $rules =  [
-            'email' => 'required|email:rfc,dns,spoof|max:191|exists:users,email',
-            'password' => 'required|string|min:8|max:191'
+            'name' => 'required|string|unique:payment_methods,name',
+            'admin_fee' => 'required|numeric',
         ];
+
+        if (in_array($this->method(), ['PUT', 'PATCH'])) {
+            $id = $this->payment_method->id;
+
+            $rules['name'] = [
+                'required',
+                "unique:payment_methods,name,{$id},id",
+            ];
+        }
 
         return $rules;
     }
