@@ -3,9 +3,10 @@
 namespace App\Services;
 
 use App\Models\Cart;
-use App\Models\PaymentMethod;
 use App\Models\User;
 use App\Models\Transaction;
+use Illuminate\Support\Str;
+use App\Models\PaymentMethod;
 use App\Models\TransactionProduct;
 use Illuminate\Support\Facades\Storage;
 
@@ -39,8 +40,8 @@ class TransactionService
 
         $transaction = Transaction::create([
             'user_id'           => auth()->id(),
-            'transaction_code'  => 'TR-' . date("d-m-Y") . '-0001',
-            'payment_code'      => 'ALFAHJAGDUJ',
+            'transaction_code'  => 'TR-' . Str::random(5) . '-' . date('Y'),
+            'payment_code'      => Str::random(10),
             'payment_method_id' => $data['payment_method_id'],
             'amount_due'        => $cart->price + $payment_method->admin_fee,
         ]);
@@ -49,7 +50,7 @@ class TransactionService
             'cart_id'           => $data['cart_id']
         ]);
 
-        if ($transaction) {
+        if ($transaction && $transaction_product) {
             $cart->status = 'process';
             $cart->save();
         }
