@@ -44,7 +44,7 @@ class AuthenticationService
     {
         try {
             if (!Auth::attempt(['email' => $request['email'], 'password' => $request['password']])) {
-                throw new Exception('Email Or Password Is Wrong, Please Check Again');
+                throw new Exception('Email atau password Anda tidak cocok');
             }
 
             // if (!auth()->user()->hasRole('reseller')) {
@@ -88,8 +88,9 @@ class AuthenticationService
         }
     }
 
-    public function logout()
+    public function logout($user)
     {
-        return auth()->user()->token()->revoke();
+        $token = $user->token();
+        $token->revoke();
     }
 }

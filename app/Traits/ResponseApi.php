@@ -43,7 +43,7 @@ trait ResponseApi
         return response()->json([
             'success' => true,
             'code' => $code,
-            'message' => $message,
+            'message' => $message ?? __('message.success'),
             // 'pagination' => $data['pagination'] ?? [],
             'data' => $data,
         ], $code);

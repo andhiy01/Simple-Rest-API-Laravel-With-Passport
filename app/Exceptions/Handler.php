@@ -2,10 +2,9 @@
 
 namespace App\Exceptions;
 
+use App\Traits\ResponseApi;
 use Throwable;
 use Psr\Log\LogLevel;
-use App\Traits\ResponseApi;
-use Illuminate\Http\Response;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -69,26 +68,22 @@ class Handler extends ExceptionHandler
     public function handleException($request, Throwable $e)
     {
         if ($e instanceof MethodNotAllowedHttpException) {
-            return $this->sendError('The specified method for the request is invalid', Response::HTTP_METHOD_NOT_ALLOWED);
+            return $this->sendError('The specified method for the request is invalid', 405);
         }
 
         if ($e instanceof NotFoundHttpException) {
-            return $this->sendError('The specified URL cannot be found', Response::HTTP_NOT_FOUND);
+            return $this->sendError('The specified URL cannot be found', 404);
         }
 
         if ($e instanceof HttpException) {
             return $this->sendError($e->getMessage(), $e->getStatusCode());
         }
 
-        if ($e instanceof ModelNotFoundException) {
-            return $this->sendError('Data Not Found', Response::HTTP_NOT_FOUND);
-        }
-
         if (config('app.debug')) {
             return parent::render($request, $e);
         }
 
-        return $this->sendError('Unexpected Exception. Try later', Response::HTTP_INTERNAL_SERVER_ERROR);
+        return $this->sendError('Unexpected Exception. Try later', 500);
     }
 
     /**
